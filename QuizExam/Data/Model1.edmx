@@ -1,0 +1,376 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QuizExamen0Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="answerID" />
+          </Key>
+          <Property Name="answerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="optionID" Type="int" />
+          <Property Name="quizID" Type="int" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ItemOption">
+          <Key>
+            <PropertyRef Name="optionID" />
+          </Key>
+          <Property Name="optionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="255" />
+          <Property Name="isRight" Type="bit" Nullable="false" />
+          <Property Name="questionID" Type="int" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="questionID" />
+          </Key>
+          <Property Name="questionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="255" />
+          <Property Name="categoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="QuestionQuiz">
+          <Key>
+            <PropertyRef Name="questionID" />
+            <PropertyRef Name="quizID" />
+          </Key>
+          <Property Name="questionID" Type="int" Nullable="false" />
+          <Property Name="quizID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="quizID" />
+          </Key>
+          <Property Name="quizID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Answer__optionID__534D60F1">
+          <End Role="ItemOption" Type="Self.ItemOption" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemOption">
+              <PropertyRef Name="optionID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answer__quizID__5441852A">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="quizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemOptio__quest__5535A963">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="ItemOption" Type="Self.ItemOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="questionID" />
+            </Principal>
+            <Dependent Role="ItemOption">
+              <PropertyRef Name="questionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__catego__5629CD9C">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionQ__quest__571DF1D5">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionQuiz" Type="Self.QuestionQuiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="questionID" />
+            </Principal>
+            <Dependent Role="QuestionQuiz">
+              <PropertyRef Name="questionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__QuestionQ__quizI__5812160E">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="1" />
+          <End Role="QuestionQuiz" Type="Self.QuestionQuiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizID" />
+            </Principal>
+            <Dependent Role="QuestionQuiz">
+              <PropertyRef Name="quizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QuizExamen0ModelStoreContainer">
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemOption" EntityType="Self.ItemOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionQuiz" EntityType="Self.QuestionQuiz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quiz" EntityType="Self.Quiz" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Answer__optionID__534D60F1" Association="Self.FK__Answer__optionID__534D60F1">
+            <End Role="ItemOption" EntitySet="ItemOption" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answer__quizID__5441852A" Association="Self.FK__Answer__quizID__5441852A">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemOptio__quest__5535A963" Association="Self.FK__ItemOptio__quest__5535A963">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="ItemOption" EntitySet="ItemOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__catego__5629CD9C" Association="Self.FK__Question__catego__5629CD9C">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionQ__quest__571DF1D5" Association="Self.FK__QuestionQ__quest__571DF1D5">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionQuiz" EntitySet="QuestionQuiz" />
+          </AssociationSet>
+          <AssociationSet Name="FK__QuestionQ__quizI__5812160E" Association="Self.FK__QuestionQ__quizI__5812160E">
+            <End Role="Quiz" EntitySet="Quiz" />
+            <End Role="QuestionQuiz" EntitySet="QuestionQuiz" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QuizExamen0Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="answerID" />
+          </Key>
+          <Property Name="answerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="optionID" Type="Int32" />
+          <Property Name="quizID" Type="Int32" />
+          <NavigationProperty Name="ItemOption" Relationship="Self.FK__Answer__optionID__534D60F1" FromRole="Answer" ToRole="ItemOption" />
+          <NavigationProperty Name="Quiz" Relationship="Self.FK__Answer__quizID__5441852A" FromRole="Answer" ToRole="Quiz" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="categoryID" />
+          </Key>
+          <Property Name="categoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Questions" Relationship="Self.FK__Question__catego__5629CD9C" FromRole="Category" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="ItemOption">
+          <Key>
+            <PropertyRef Name="optionID" />
+          </Key>
+          <Property Name="optionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="isRight" Type="Boolean" Nullable="false" />
+          <Property Name="questionID" Type="Int32" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK__Answer__optionID__534D60F1" FromRole="ItemOption" ToRole="Answer" />
+          <NavigationProperty Name="Question" Relationship="Self.FK__ItemOptio__quest__5535A963" FromRole="ItemOption" ToRole="Question" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="questionID" />
+          </Key>
+          <Property Name="questionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="text" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="categoryID" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Question__catego__5629CD9C" FromRole="Question" ToRole="Category" />
+          <NavigationProperty Name="ItemOptions" Relationship="Self.FK__ItemOptio__quest__5535A963" FromRole="Question" ToRole="ItemOption" />
+          <NavigationProperty Name="Quizs" Relationship="Self.QuestionQuiz" FromRole="Question" ToRole="Quiz" />
+        </EntityType>
+        <EntityType Name="Quiz">
+          <Key>
+            <PropertyRef Name="quizID" />
+          </Key>
+          <Property Name="quizID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Answers" Relationship="Self.FK__Answer__quizID__5441852A" FromRole="Quiz" ToRole="Answer" />
+          <NavigationProperty Name="Questions" Relationship="Self.QuestionQuiz" FromRole="Quiz" ToRole="Question" />
+        </EntityType>
+        <Association Name="FK__Answer__optionID__534D60F1">
+          <End Role="ItemOption" Type="Self.ItemOption" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemOption">
+              <PropertyRef Name="optionID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="optionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Answer__quizID__5441852A">
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="0..1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quiz">
+              <PropertyRef Name="quizID" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="quizID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Question__catego__5629CD9C">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="categoryID" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="categoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemOptio__quest__5535A963">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="ItemOption" Type="Self.ItemOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="questionID" />
+            </Principal>
+            <Dependent Role="ItemOption">
+              <PropertyRef Name="questionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="QuestionQuiz">
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <End Role="Quiz" Type="Self.Quiz" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="QuizExamen0Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answers" EntityType="Self.Answer" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="ItemOptions" EntityType="Self.ItemOption" />
+          <EntitySet Name="Questions" EntityType="Self.Question" />
+          <EntitySet Name="Quizs" EntityType="Self.Quiz" />
+          <AssociationSet Name="FK__Answer__optionID__534D60F1" Association="Self.FK__Answer__optionID__534D60F1">
+            <End Role="ItemOption" EntitySet="ItemOptions" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Answer__quizID__5441852A" Association="Self.FK__Answer__quizID__5441852A">
+            <End Role="Quiz" EntitySet="Quizs" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Question__catego__5629CD9C" Association="Self.FK__Question__catego__5629CD9C">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Question" EntitySet="Questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemOptio__quest__5535A963" Association="Self.FK__ItemOptio__quest__5535A963">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="ItemOption" EntitySet="ItemOptions" />
+          </AssociationSet>
+          <AssociationSet Name="QuestionQuiz" Association="Self.QuestionQuiz">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="Quiz" EntitySet="Quizs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QuizExamen0ModelStoreContainer" CdmEntityContainer="QuizExamen0Entities2">
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="QuizExamen0Model.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="answerID" ColumnName="answerID" />
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+                <ScalarProperty Name="quizID" ColumnName="quizID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="QuizExamen0Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemOptions">
+            <EntityTypeMapping TypeName="QuizExamen0Model.ItemOption">
+              <MappingFragment StoreEntitySet="ItemOption">
+                <ScalarProperty Name="optionID" ColumnName="optionID" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="isRight" ColumnName="isRight" />
+                <ScalarProperty Name="questionID" ColumnName="questionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="QuizExamen0Model.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="questionID" ColumnName="questionID" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quizs">
+            <EntityTypeMapping TypeName="QuizExamen0Model.Quiz">
+              <MappingFragment StoreEntitySet="Quiz">
+                <ScalarProperty Name="quizID" ColumnName="quizID" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="QuestionQuiz" TypeName="QuizExamen0Model.QuestionQuiz" StoreEntitySet="QuestionQuiz">
+            <EndProperty Name="Question">
+              <ScalarProperty Name="questionID" ColumnName="questionID" />
+            </EndProperty>
+            <EndProperty Name="Quiz">
+              <ScalarProperty Name="quizID" ColumnName="quizID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

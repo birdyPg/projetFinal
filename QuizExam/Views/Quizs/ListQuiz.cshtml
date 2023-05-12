@@ -1,0 +1,31 @@
+﻿@model IEnumerable<QuizExam.Data.Quiz>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.quizID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink( " Quiz " + item.quizID, "answerQuiz", new { quizId= item.quizID })
+
+        </td>
+        <td>
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.quizID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.quizID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.quizID })*@
+        </td>
+    </tr>
+}
+
+</table>
+<p>
+    @Html.ActionLink("Passer", "PasserQuiz")         
+
+    @Html.ActionLink("PassQuiz", "Cancel")
+</p>

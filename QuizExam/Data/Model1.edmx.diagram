@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cce5efc787864f2199d93b18477a9a8e" Name="Diagram1">
+        <EntityTypeShape EntityType="QuizExamen0Model.Answer" Width="1.75" PointX="8.125" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizExamen0Model.Category" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizExamen0Model.ItemOption" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizExamen0Model.Question" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuizExamen0Model.Quiz" Width="1.875" PointX="5.25" PointY="4" IsExpanded="true" />
+        <AssociationConnector Association="QuizExamen0Model.FK__Answer__optionID__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizExamen0Model.FK__Answer__quizID__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizExamen0Model.FK__Question__catego__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizExamen0Model.FK__ItemOptio__quest__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="QuizExamen0Model.QuestionQuiz" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
