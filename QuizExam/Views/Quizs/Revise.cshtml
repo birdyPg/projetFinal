@@ -1,7 +1,41 @@
-﻿
-@{
-    ViewBag.Title = "Revise";
+﻿@model QuizExam.Data.Quiz
+
+
+@using (Html.BeginForm())
+{
+    string className="";
+    @Html.AntiForgeryToken()
+    <h1>Quiz numero @Model.quizID </h1>
+    <table class="table">
+        
+        @for (int i = 0; i < Model.Questions.Count; i++)
+          {
+            
+            @Html.HiddenFor(m => m.Questions[i].questionID)  
+              @Html.DisplayFor(m => m.Questions[i].text)   
+            for (int j = 0; j < Model.Questions[i].ItemOptions.Count; j++)
+            {
+                className = "";
+                if (@Model.Questions[i].ItemOptions[j].isRight == true)
+                  {
+                  className = "correctOption";
+                  }
+       
+                if(@Model.Questions[i].answeredOptionId(Model.quizID) == @Model.Questions[i].ItemOptions[j].optionID
+                    && @Model.Questions[i].ItemOptions[j].isRight == false)
+                          {
+                            className = "wrongOption";
+                          }
+
+              <div>
+                @Html.RadioButtonFor(m => m.Questions[i].selectedOptionID, Model.Questions[i].ItemOptions[j].optionID, new{ @class = className } )
+                <span class =@className>@Model.Questions[i].ItemOptions[j].text </span>
+
+              </div>   
+            }
+          }
+
+
+    </table>
+
 }
-
-<h2>Revise</h2>
-

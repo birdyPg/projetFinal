@@ -12,20 +12,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink( " Quiz " + item.quizID, "answerQuiz", new { quizId= item.quizID })
+            Quiz @item.quizID
 
         </td>
         <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.quizID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.quizID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.quizID })*@
+            @Html.ActionLink( " pass quiz ", "answerQuiz", new { quizId= item.quizID }) |
+            @Html.ActionLink( " revise quiz ", "Revise", new { quizId= item.quizID })
         </td>
     </tr>
 }
 
 </table>
-<p>
-    @Html.ActionLink("Passer", "PasserQuiz")         
-
-    @Html.ActionLink("PassQuiz", "Cancel")
-</p>

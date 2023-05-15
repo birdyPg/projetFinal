@@ -20,9 +20,11 @@ namespace QuizExam.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> Revise()
+        public async Task<ActionResult> Revise(int quizId)
         {
-            return View();
+            //return questions
+            var quiz = db.Quizs.Where(x => x.quizID == quizId).FirstOrDefault<Quiz>();
+            return View(quiz);
         }
 
         public async Task<ActionResult> AnswerQuiz(int quizId)
@@ -30,6 +32,21 @@ namespace QuizExam.Controllers
             //return questions
             var quiz = db.Quizs.Where(x=>x.quizID == quizId).FirstOrDefault<Quiz>();
             return View(quiz);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AnswerQuiz(Quiz quiz)
+        {
+            var answers = quiz.Questions.Select(x =>
+                new Answer() { optionID = x.selectedOptionID, quizID = quiz.quizID }
+            ).ToList();
+            db.Answers.AddRange(answers);
+            await db.SaveChangesAsync();
+
+            //PassQuiz
+
+            return RedirectToAction("PassQuiz");
         }
 
         public async Task<ActionResult> ListQuiz(string userName, string email)

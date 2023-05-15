@@ -4,7 +4,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    <h1>Quiz numero @Model.quizID </h1>
     <table class="table">
         
         @for (int i = 0; i < Model.Questions.Count; i++)
@@ -22,11 +22,9 @@
 
 
     </table>
+ <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
 }
-    @*@Html.ActionLink("Edit", "Edit", new { id = item.questionID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.questionID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.questionID })
-
-
-
-*@
